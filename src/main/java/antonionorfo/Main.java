@@ -88,14 +88,15 @@ public class Main {
 
         //dato un elenco di prodotti , raggruppa i prodotti per categoria e calcola la somma degli importi per ogni categoria utilizzando stream e lamba expressions
 
-        double averageOrderAmont = orders.stream()
-                .collect(Collectors.averagingDouble(order -> order.getProducts().stream()
-                        .mapToDouble(Product::getPrice)
-                        .sum()));
+        Map<String, Double> totalSalesByCategory = products.stream()
+                .collect(Collectors.groupingBy(productss -> productss.getCategory(), Collectors.summingDouble(Product -> Product.getPrice())));
+
 
         System.out.println();
-        System.out.println("Media degli importi degli ordini:");
-        System.out.println(averageOrderAmount);
+        System.out.println("Totale vendite per categoria:");
+        System.out.println();
+        totalSalesByCategory.forEach((category, totalSales) ->
+                System.out.println("Categoria: " + category + ", Totale vendite: " + totalSales));
 
 
     }
