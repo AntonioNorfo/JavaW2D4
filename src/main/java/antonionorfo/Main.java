@@ -50,7 +50,7 @@ public class Main {
 
         Map<Customer, Double> totalSalesByCustomer = orders.stream()
                 .collect(Collectors.groupingBy(
-                        Order::getCustomer,
+                        Order -> Order.getCustomer(),
                         Collectors.summingDouble(order -> order.getProducts().stream()
                                 .mapToDouble(Product -> Product.getPrice())
                                 .sum())
@@ -78,7 +78,7 @@ public class Main {
 
         double averageOrderAmount = orders.stream()
                 .collect(Collectors.averagingDouble(order -> order.getProducts().stream()
-                        .mapToDouble(Product::getPrice)
+                        .mapToDouble(Product -> Product.getPrice())
                         .sum()));
 
         System.out.println();
